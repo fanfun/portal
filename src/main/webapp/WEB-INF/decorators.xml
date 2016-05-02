@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<decorators defaultdir="/WEB-INF/freemarker/decorator">
+	<!-- Any urls that are excluded will never be decorated by Sitemesh -->
+	<excludes>
+		<pattern>/img/*</pattern>
+		<pattern>/css/*</pattern>
+		<pattern>/js/*</pattern>
+		<pattern>/script/*</pattern>
+		<pattern>*/ajax</pattern>
+		<pattern>/login</pattern>
+		<pattern>/login/*</pattern>
+    </excludes>
+	<!--<decorator name="setting" page="setting.ftl">-->
+		<!--&lt;!&ndash;<pattern>/setting/*</pattern>&ndash;&gt;-->
+        <!--<pattern>/welcome</pattern>-->
+    <!--</decorator>-->
+</decorators>

@@ -1,0 +1,29 @@
+.introduce {
+    padding: 40px 0;
+    background-color: #5F857A;
+    background-image: url(../../img/light.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 450px;
+}
+
+.wrap {
+    width: 740px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.center {
+    width: 640px;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+}
+
+h1 p, h4 p{
+    color: snow;
+}
+
+table tr td {
+    color: #999;
+}

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- 启动SpringMVC的注解功能，它会自动注册HandlerMapping、HandlerAdapter、ExceptionResolver的相关实例 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <task:annotation-driven/>
+    <task:scheduler id="scheduler" pool-size="1"/>
+
+    <!--spring 自动扫描-->
+    <context:component-scan base-package="com.school.shop"/>
+
+    <!-- spring 整合 freemaker -->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="number_format">0.####</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+    </bean>
+
+    <!-- spring 整合 proxool jdbc hibernate -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:db.properties</value>
+                <value>classpath:redis.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- redis -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxActive" value="100"/>
+        <property name="maxIdle" value="10"/>
+        <property name="maxWait" value="100000"/>
+        <property name="testOnBorrow" value="true"/>
+    </bean>
+
+    <bean id="publicJedisPool" class="redis.clients.jedis.JedisPool" scope="singleton">
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
+        <constructor-arg name="host" value="${public.redis.host}"/>
+        <constructor-arg name="port" value="${public.redis.port}"/>
+    </bean>
+
+    <!--******* 各种DB *********-->
+
+    <!-- ********** 登录验证 ************ -->
+    <bean id="loginDBPool" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+        <property name="driver" value="org.postgresql.Driver"/>
+        <property name="driverUrl" value="${login.url}"/>
+        <property name="user" value="${login.user}"/>
+        <property name="password" value="${login.password}"/>
+        <property name="houseKeepingTestSql" value="select 1"/>
+        <property name="testBeforeUse" value="true"/>
+        <property name="alias" value="loginDB"/>
+    </bean>
+
+    <bean id="loginDB" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg index="0">
+            <ref bean="loginDBPool"/>
+        </constructor-arg>
+    </bean>
+
+
+    <!-- *********** 配置读取 ************ -->
+    <bean id="configDBPool" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+        <property name="driver" value="org.postgresql.Driver"/>
+        <property name="driverUrl" value="${config.url.read}"/>
+        <property name="user" value="${config.user.read}"/>
+        <property name="password" value="${config.password.read}"/>
+        <property name="houseKeepingTestSql" value="select 1"/>
+        <property name="testBeforeUse" value="true"/>
+        <property name="alias" value="configReadDB"/>
+    </bean>
+
+    <bean id="configDB" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg index="0">
+            <ref bean="configDBPool"/>
+        </constructor-arg>
+    </bean>
+
+
+    <!-- *********** 数据读取 ************ -->
+    <bean id="dataReadDBPool" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+        <property name="driver" value="org.postgresql.Driver"/>
+        <property name="driverUrl" value="${data.url}"/>
+        <property name="user" value="${data.user}"/>
+        <property name="password" value="${data.password}"/>
+        <property name="houseKeepingTestSql" value="select 1"/>
+        <property name="testBeforeUse" value="true"/>
+        <property name="alias" value="dataReadDB"/>
+    </bean>
+
+    <bean id="dataReadDB" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg index="0">
+            <ref bean="dataReadDBPool"/>
+        </constructor-arg>
+    </bean>
+
+    <!-- *********** 数据读取 ************ -->
+    <bean id="dataWriteDBPool" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+        <property name="driver" value="org.postgresql.Driver"/>
+        <property name="driverUrl" value="${data.url}"/>
+        <property name="user" value="${data.user}"/>
+        <property name="password" value="${data.password}"/>
+        <property name="houseKeepingTestSql" value="select 1"/>
+        <property name="testBeforeUse" value="true"/>
+        <property name="alias" value="dataReadDB"/>
+    </bean>
+
+    <bean id="dataWriteDB" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg index="0">
+            <ref bean="dataWriteDBPool"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8" />
+        <property name="maxUploadSize" value="10485760000" />
+        <property name="maxInMemorySize" value="40960" />
+    </bean>
+
+</beans>

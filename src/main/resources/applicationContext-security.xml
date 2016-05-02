@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                     http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <!-- 不过滤 -->
+    <security:http security="none" pattern="/css/**"/>
+    <security:http security="none" pattern="/js/**"/>
+    <security:http security="none" pattern="/img/**"/>
+
+    <security:http auto-config="true" path-type="ant" realm="Contacts Realm">
+        <security:intercept-url pattern="/welcome" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <!--<security:intercept-url pattern="/squid/**" access="ROLE_USER"/>-->
+        <security:intercept-url pattern="/masp/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:intercept-url pattern="/login/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+
+
+        <security:form-login login-page="/login" authentication-failure-url="/login/failed" login-processing-url=""
+                             default-target-url="/welcome"/>
+        <security:logout logout-success-url="/login" invalidate-session="true"/>
+        <security:session-management>
+            <security:concurrency-control expired-url="/login"/>
+        </security:session-management>
+    </security:http>
+
+
+    <security:authentication-manager>
+        <security:authentication-provider ref="vosAuthenticationProvider"/>
+    </security:authentication-manager>
+    <security:global-method-security pre-post-annotations="enabled">
+    </security:global-method-security>
+
+    <bean id="vosAuthenticationProvider" class="com.vos.maa.portal.authentication.VosAuthenticationProvider"/>
+</beans>

@@ -1,0 +1,168 @@
+/* funster */
+
+p.shop-name {
+    font-family: 楷体;
+    font-size: x-large;
+}
+
+p.shop-desc {
+    text-indent: 20px;
+    color: #666;
+}
+
+.target:hover * {
+    margin-left: 2px;
+}
+
+.product-desc {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.word {
+    font-size: small;
+    color: #666;
+}
+
+.title {
+    font-size: medium;
+    color: #666;
+}
+
+.index-font {
+    margin-top: 10px;
+    font-size: medium;
+    color: #7b6b53;
+}
+
+.detail-price {
+    padding-right: 5px;
+    font-size: large;
+    color: #bc0000;
+}
+
+.detail-activity {
+    font-size: 80%;
+    color: #999;
+}
+
+.detail-key {
+    color: #999;
+    font-size: 12px;
+    text-align: left !important;
+    float: left !important;
+    width: 60px !important;
+    font-weight: 500 !important;
+    margin-top: 10px;
+}
+
+.detail-value {
+    margin-left: 60px !important;
+}
+
+.detail-align {
+    margin-top: 10px;
+}
+
+span.sel {
+    float: left;
+    background-color: #fff;
+    white-space: nowrap;
+    width: auto !important;
+    min-width: 10px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #b8b7bd;
+    color: #000;
+    text-decoration: none;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.btn-buy {
+    color: #fff;
+    background-color: #bc0000;
+    border-color: #bc0000;
+}
+
+.form-num {
+    width: 50px;
+    height: 25px;
+    padding: 3px 6px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.pinned {
+    z-index: 1030;
+}
+
+.product:hover .product-wrap {
+    /*height: auto;*/
+    /*margin: -3px;*/
+    border: 2px solid #bc0000;
+    /*border-radius: 0;*/
+}
+
+.product {
+    width: 220px;
+    position: relative;
+    float: left;
+    margin: 0;
+    margin-right: 20px;
+    margin-top: 20px;
+    line-height: 1.5;
+    overflow: visible;
+    z-index: 1;
+}
+
+.product-wrap {
+    /*position: absolute;*/
+    background-color: #fff;
+    margin: 0;
+    padding: 10px;
+    font-size: 0;
+    border: 2px solid #f5f5f5;
+    border-radius: 3px;
+}
+
+.product-img {
+    display: table;
+    table-layout: fixed;
+    height: 210px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.col-left {
+    float: left;
+    width: 85%;
+}
+
+.col-right {
+    float: right;
+    width: 15%;
+}
+
+.pinned {
+    width: 98%;
+    margin-top: 20px;
+}
+.glyphicon:hover{cursor:pointer}
+
+.product-a {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.classify {
+    display: table;
+    margin-top: 30px;
+    padding: 10px;
+}

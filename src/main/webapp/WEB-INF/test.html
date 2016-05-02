@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+	<script type="text/javascript" src="E:/workspace/vos/trunk/portal-vos/portal-app/src/main/webapp/js/jquery/jquery-1.7.2.js"></script>
+	<script type="text/javascript">
+	function addCount(){
+		var pCount = $("#pCount").val();
+		pCount = pCount*1 + 1;
+		$("#pCount").val(pCount);
+	}
+</script>
+</head>
+
+<body>
+	<input type="text" id="pCount" value="0"/>
+    <button type="button" onclick="addCount(null)">添加</button>
+</body>
+</html>

@@ -7,6 +7,7 @@ import com.school.shop.shae.model.Student;
 import com.school.shop.shae.service.ShaeService;
 import com.school.shop.shae.service.StudentService;
 import com.school.shop.util.Base64Util;
+import freemarker.ext.beans.BeansWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,6 +93,7 @@ public class ModifyController {
     @RequestMapping(value = "sell")
     public ModelAndView sell() {
         ModelAndView model = new ModelAndView("shae/sell");
+        model.addObject("enums", BeansWrapper.getDefaultInstance().getEnumModels());
         return model;
     }
 }

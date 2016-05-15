@@ -15,10 +15,9 @@ public class Product {
     private int item;
     //上下架状态
     private String nick;
+    private String phone;
     private String status;
     private String type;
-//    private int status;
-//    private int type;
     private String createtime;
 
     public Product() {
@@ -38,6 +37,14 @@ public class Product {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getName() {

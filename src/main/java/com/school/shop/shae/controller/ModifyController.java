@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2015/5/3.
@@ -94,6 +95,14 @@ public class ModifyController {
     public ModelAndView sell() {
         ModelAndView model = new ModelAndView("shae/sell");
         model.addObject("enums", BeansWrapper.getDefaultInstance().getEnumModels());
+        model.addObject("id", UUID.randomUUID().toString());
         return model;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "sellCommit", method = RequestMethod.POST)
+    public String sellCommit(Product product) {
+        System.out.println(product.getItem());
+        return "true";
     }
 }

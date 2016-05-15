@@ -18,9 +18,10 @@ public class FileController {
 
     @RequestMapping(value = "/img/upload", method= RequestMethod.POST)
     @ResponseBody
-    public String uploadCommunityPics(String communityId, String[] picNames, HttpServletRequest request) {
+    public String uploadCommunityPics(HttpServletRequest request) {
         List<String> paths = FileUtil.saveImages(request, "files", "aa");
-        return "误了";
+        String id = request.getParameter("id").toString();
+        return "true";
 //        pictureService.addCommunityPics(communityId, paths, picNames);
 //        toResponse();
     }
